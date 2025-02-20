@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL } from '../../../urls';
 
 // Initial state for the auth slice
 const initialState = {
@@ -17,7 +18,7 @@ export const signupAsync = createAsyncThunk(
   'auth/signupAsync',
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/signup', userData, {
+      const response = await axios.post(`${BASE_URL}/signup`, userData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -34,7 +35,7 @@ export const loginAsync = createAsyncThunk(
   'auth/loginAsync',
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/employees/login', userData, {
+      const response = await axios.post(`${BASE_URL}/login`, userData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -52,7 +53,7 @@ export const authMeAsync = createAsyncThunk(
   'auth/authMeAsync',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get('http://localhost:5000/api/employees/me', {
+      const response = await axios.get(`${BASE_URL}/me`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage

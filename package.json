@@ -8,8 +8,7 @@
     "install": "npm run install:frontend && npm run install:backend",
     "build:frontend": "cd frontend && npm run build",  
     "build": "npm run install && npm run build:frontend",  
-    "start": "npm run build && npm run serve",  
-    "serve": "cd backend && npm start"  
+    "start": "cd backend && npm run start"
   },
   "keywords": [],
   "author": "",

@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL } from '../../../urls';
 
 // Action to mark attendance
 export const markAttendance = createAsyncThunk(
   'attendance/markAttendance',
   async (attendanceData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/employees/mark-attendance', attendanceData,{
+      const response = await axios.post(`${BASE_URL}/mark-attendance`, attendanceData,{
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage
@@ -24,7 +25,7 @@ export const fetchAttendanceList = createAsyncThunk(
   'attendance/fetchAttendanceList',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('http://localhost:5000/api/employees/attendance',{
+      const response = await axios.get(`${BASE_URL}/attendance`,{
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage
@@ -42,7 +43,7 @@ export const fetchAttendanceByUserId = createAsyncThunk(
   'attendance/fetchAttendanceByUserId',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/employees/attendance/${userId}`,{
+      const response = await axios.get(`${BASE_URL}/attendance/${userId}`,{
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage

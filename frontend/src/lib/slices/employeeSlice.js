@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL } from '../../../urls';
 
 // Initial state
 const initialState = {
@@ -15,7 +16,7 @@ export const fetchEmployees = createAsyncThunk(
   'employee/fetchEmployees',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('http://localhost:5000/api/employees/employee-list',{
+      const response = await axios.get(`${BASE_URL}/employee-list`,{
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage
@@ -33,7 +34,7 @@ export const createEmployee = createAsyncThunk(
   'employee/createEmployee',
   async (employeeData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/employees/create', employeeData,{
+      const response = await axios.post(`${BASE_URL}/create`, employeeData,{
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage
@@ -64,7 +65,7 @@ export const deleteEmployeeById = createAsyncThunk(
   'employee/deleteEmployee',
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:5000/api/employees/delete/${id}`,{
+      await axios.delete(`${BASE_URL}/delete/${id}`,{
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage

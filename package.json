@@ -1,0 +1,19 @@
+{
+  "name": "k_and_a_assignment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "install": "npm run install:frontend && npm run install:backend",
+    "build:frontend": "cd frontend && npm run build",  
+    "build": "npm run install && npm run build:frontend",  
+    "start": "npm run build && npm run serve",  
+    "serve": "cd backend && npm start"  
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": ""
+}

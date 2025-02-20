@@ -83,7 +83,8 @@ export const fetchEmpLeaveList = (userId) => async (dispatch) => {
 // Approve leave
 export const approveLeave = (leaveId) => async (dispatch) => {
   try {
-    const response = await axios.put(`${BASE_URL}/approve-leave/${leaveId}`,{
+    console.log(leaveId)
+    const response = await axios.post(`${BASE_URL}/approve-leave/${leaveId}`,{},{
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage
@@ -98,7 +99,8 @@ export const approveLeave = (leaveId) => async (dispatch) => {
 // Reject leave
 export const rejectLeave = (leaveId) => async (dispatch) => {
   try {
-    const response = await axios.put(`${BASE_URL}/reject-leave/${leaveId}`,{
+    console.log(leaveId)
+    const response = await axios.post(`${BASE_URL}/reject-leave/${leaveId}`,{},{
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage

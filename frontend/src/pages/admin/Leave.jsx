@@ -14,8 +14,15 @@ const Leave = () => {
         <h2 className="text-2xl font-semibold mb-4">Leave Requests</h2>
         <ul>
           {leaveList.map(leave => (
-            <li key={leave._id} className="border-b py-2">
+            <li key={leave._id} className="border-b py-2 flex justify-between items-center">
+              <div>
               {leave.from} - {leave.to}
+              </div>
+              <div>
+                {
+                  leave.status
+                }
+              </div>
               <div className="mt-2">
                 <button
                   onClick={() => dispatch( approveLeave(leave._id ))}

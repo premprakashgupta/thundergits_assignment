@@ -321,8 +321,9 @@ const cancelLeave = async (req, res) => {
 // Approve Leave
 const approveLeave = async (req, res) => {
   try {
-    const { leaveId } = req.params;
-    const leaveRequest = await Leave.findById(leaveId);
+    const { id } = req.params;
+    console.log(id)
+    const leaveRequest = await UserLeave.findById(id);
     if (!leaveRequest) {
       return res.status(404).json({ message: 'Leave request not found' });
     }
@@ -339,8 +340,9 @@ const approveLeave = async (req, res) => {
 // Reject Leave
 const rejectLeave = async (req, res) => {
   try {
-    const { leaveId } = req.params;
-    const leaveRequest = await Leave.findById(leaveId);
+    const { id } = req.params;
+    console.log(id)
+    const leaveRequest = await UserLeave.findById(id);
     if (!leaveRequest) {
       return res.status(404).json({ message: 'Leave request not found' });
     }
@@ -354,11 +356,16 @@ const rejectLeave = async (req, res) => {
   }
 };
 
-const logoutUser = async (refreshToken) => {
+const logoutUser = async (req,res) => {
+  try {
+    await Token.deleteOne({ userId:req.params.id });
+  
+    return res.status(200).json({ message: 'User logged out successfully' });
+    
+  } catch (error) {
+    res.status(500).json({ message: 'error in logout', error });
+  }
   // Remove the refresh token from the database
-  await Token.deleteOne({ refreshToken });
-
-  return { message: 'User logged out successfully' };
 };
 
 

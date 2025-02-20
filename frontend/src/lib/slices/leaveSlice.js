@@ -56,11 +56,12 @@ const leaveSlice = createSlice({
     
 
     approveLeaveSuccess: (state, action) => {
-      const updatedLeave = action.payload;
+      const updatedLeave = action.payload.leaveRequest;
+      console.log(action.payload)
       state.leaveList = state.leaveList.map(leave => leave._id === updatedLeave._id ? updatedLeave : leave);
     },
     rejectLeaveSuccess: (state, action) => {
-      const updatedLeave = action.payload;
+      const updatedLeave = action.payload.leaveRequest;
       state.leaveList = state.leaveList.map(leave => leave._id === updatedLeave._id ? updatedLeave : leave);
     },
   },

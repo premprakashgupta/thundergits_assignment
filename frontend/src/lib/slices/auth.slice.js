@@ -66,17 +66,27 @@ export const authMeAsync = createAsyncThunk(
   }
 );
 
+export const logOutAsync = createAsyncThunk(
+  'auth/logOutAsync',
+  async (userId, thunkAPI) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/logout/${userId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming the token is stored in localStorage
+        },
+      });
+      return response.data; // Return user data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response ? error.response.data : 'Authentication failed');
+    }
+  }
+);
 // Auth slice
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-      state.message = 'Logged out successfully';
-      localStorage.removeItem('token'); // Clear token from localStorage
-    },
     clearError: (state) => {
       state.error = null;
       state.message = '';
@@ -135,6 +145,13 @@ export const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload || 'Authentication failed';
         state.isAuthenticated = false;
+      })
+      .addCase(logOutAsync.fulfilled, (state, action) => {
+        
+        state.user = null;
+      state.isAuthenticated = false;
+      state.message = 'Logged out successfully';
+      localStorage.removeItem('token'); // Clear token from localStorage
       });
   }
 });

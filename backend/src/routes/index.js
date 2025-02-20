@@ -1,5 +1,5 @@
 const express = require('express');
-const { createEmployee, deleteEmployee, updateEmployee, viewEmployeeList, viewEmployeeDetailById, markAttendance, applyLeave, cancelLeave, approveLeave, rejectLeave, loginUser, registerUser, authMe, attendanceList, attendanceListByUserId, viewLeaveList, empLeaveList } = require('../controllers');
+const { createEmployee, deleteEmployee, updateEmployee, viewEmployeeList, viewEmployeeDetailById, markAttendance, applyLeave, cancelLeave, approveLeave, rejectLeave, loginUser, registerUser, authMe, attendanceList, attendanceListByUserId, viewLeaveList, empLeaveList, logoutUser } = require('../controllers');
 const roleMiddleware = require('../middlewares/roleMiddleware');
 const { fileUpload } = require('../utils/file.upload');
 const authenticate = require('../middlewares/authMiddleware');
@@ -25,8 +25,10 @@ router.get('/employee-detail/:id', roleMiddleware(['admin']), viewEmployeeDetail
 router.get('/leave-list',authenticate, roleMiddleware(['admin']), viewLeaveList);
 
 // Admin leave approval/rejection (only admin can approve/reject leave)
-router.put('/approve-leave/:leaveId',authenticate, roleMiddleware(['admin']), approveLeave);
-router.put('/reject-leave/:leaveId', authenticate, roleMiddleware(['admin']), rejectLeave);
+router.post('/approve-leave/:id',authenticate, roleMiddleware(['admin']), approveLeave);
+router.post('/reject-leave/:id', authenticate, roleMiddleware(['admin']), rejectLeave);
 
+
+router.get('/logout/:id', authenticate, logoutUser);
 // All routes will require authentication and a role check.
 module.exports = router;

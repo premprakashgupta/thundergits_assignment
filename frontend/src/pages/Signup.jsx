@@ -42,7 +42,7 @@ const Signup = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up for MelodyVerse</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
         <Formik
           initialValues={{ email: '', password: '', confirmPassword: '', terms: false }}
           validationSchema={validationSchema}

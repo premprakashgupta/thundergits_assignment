@@ -48,9 +48,9 @@ const AddStudentForm = () => {
     const classNumber = faker.number.int({ min: 1, max: 12 });
     const suffix =
       classNumber === 1 ? "st" :
-      classNumber === 2 ? "nd" :
-      classNumber === 3 ? "rd" : "th";
-  
+        classNumber === 2 ? "nd" :
+          classNumber === 3 ? "rd" : "th";
+
     return {
       admissionNumber: Math.floor(100000 + Math.random() * 900000).toString(),
       rollNumber: faker.number.int({ min: 1, max: 100 }),
@@ -80,7 +80,7 @@ const AddStudentForm = () => {
       aadharPart3: faker.number.int({ min: 1000, max: 9999 }).toString(),
     };
   };
-  
+
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -111,11 +111,11 @@ const AddStudentForm = () => {
       studentPhoto: Yup.string().optional(),
     }),
     onSubmit: async (values) => {
-      if(!file){
+      if (!file) {
         return alert("File is required")
       }
       const formData = new FormData();
-  
+
       for (const key in values) {
         if (Object.prototype.hasOwnProperty.call(values, key)) {
           const element = values[key];
@@ -125,16 +125,16 @@ const AddStudentForm = () => {
           );
         }
       }
-  
+
       if (file) {
         formData.append("studentPhoto", file);
       }
-  
+
       dispatch(createStudent(formData));
-      
+
     },
   });
-  
+
 
   const handleFillForm = (e) => {
     e.preventDefault()
@@ -154,15 +154,15 @@ const AddStudentForm = () => {
   };
 
   return (
-    <form onSubmit={formik.handleSubmit} className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-      <div className="flex justify-center items-center relative">
-        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Add Student</h2>
-        <button onClick={handleFillForm} className="absolute top-0 right-0 cursor-pointer bg-green-400 rounded-md p-2 font-medium text-white ">fill the form</button>
+    <form onSubmit={formik.handleSubmit} className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-3">
+      <div className="flex justify-between relative">
+        <div className="text-lg md:text-3xl font-semibold text-center mb-6 text-gray-800">Add Student</div>
+        <button onClick={handleFillForm} className="absolute top-0 right-0 text-sm cursor-pointer bg-green-400 rounded-md p-2 font-medium text-white ">fill the form</button>
 
       </div>
 
       {/* Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className=" mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 w-[320px] sm:w-3/4 ">
         {/* Admission Details */}
         <div>
           <div><label htmlFor="" className="font-medium ">Admission Number</label></div>
@@ -187,21 +187,21 @@ const AddStudentForm = () => {
         <div>
           <div> <label htmlFor="" className="font-medium ">Class</label> </div>
           <select {...formik.getFieldProps("class")} className="input border-[1px] border-gray-300 p-1 rounded-md">
-  <option value="">Select Class</option>
-  {[...Array(12)].map((_, i) => {
-    const classNumber = i + 1;
-    const suffix =
-      classNumber === 1 ? "st" :
-      classNumber === 2 ? "nd" :
-      classNumber === 3 ? "rd" : "th";
+            <option value="">Select Class</option>
+            {[...Array(12)].map((_, i) => {
+              const classNumber = i + 1;
+              const suffix =
+                classNumber === 1 ? "st" :
+                  classNumber === 2 ? "nd" :
+                    classNumber === 3 ? "rd" : "th";
 
-    return (
-      <option key={classNumber} value={`${classNumber}${suffix}`}>
-        {`${classNumber}${suffix}`}
-      </option>
-    );
-  })}
-</select>
+              return (
+                <option key={classNumber} value={`${classNumber}${suffix}`}>
+                  {`${classNumber}${suffix}`}
+                </option>
+              );
+            })}
+          </select>
 
           {formik.touched.class && formik.errors.class && <div className="text-red-500">{formik.errors.class}</div>}
         </div>
@@ -245,11 +245,11 @@ const AddStudentForm = () => {
         <div className="flex items-center space-x-2">
           <input type="checkbox" checked={sameAddress} onChange={() => {
             setSameAddress(!sameAddress)
-            if(!sameAddress){
-              formik.setFieldValue('correspondenceAddress',formik.getFieldProps('permanentAddress').value)
+            if (!sameAddress) {
+              formik.setFieldValue('correspondenceAddress', formik.getFieldProps('permanentAddress').value)
 
-            }else{
-              formik.setFieldValue('correspondenceAddress','')
+            } else {
+              formik.setFieldValue('correspondenceAddress', '')
             }
           }
 
@@ -294,10 +294,8 @@ const AddStudentForm = () => {
           <input type="text" {...formik.getFieldProps("motherName")} placeholder="Mother's Name" className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
         {formik.touched.motherName && formik.errors.motherName && <div className="text-red-500">{formik.errors.motherName}</div>}
         {/* Aadhaar Number */}
-        <div>
-          <div> <label htmlFor="" className="font-medium ">Aadhar Number</label> </div>
-        <AadharInput formik={formik}/>
-        </div>
+        
+          <AadharInput formik={formik} />
 
         {/* Image Upload */}
         <label className="input border-[1px] border-gray-300 p-1 rounded-md cursor-pointer flex items-center space-x-2">
@@ -310,7 +308,7 @@ const AddStudentForm = () => {
 
       {/* Submit Button */}
       <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition mt-4">
-        {loading ? "submitting...":"Submit"}
+        {loading ? "submitting..." : "Submit"}
       </button>
     </form>
   );

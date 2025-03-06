@@ -16,22 +16,22 @@ const AdminLayout = ({ children }) => {
     <div className="p-6">
       {/* Navigation Bar (NavLink for routing) */}
       <div className='flex justify-between items-center'>
-      <div className="flex space-x-4 mb-6">
+      <div className="flex justify-start items-center mb-6">
       <NavLink
           to="/student"
-          className={`rounded-full px-6 py-2 ${activeNav === "/student" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
+          className={`rounded-md text-sm flex justify-center items-center mr-1 px-3 py-2 ${activeNav === "/student" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
         >
           students
         </NavLink>
         <NavLink
           to="/student/create"
-          className={`rounded-full px-6 py-2 ${activeNav === "/student/create" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
+          className={`rounded-md text-sm flex justify-center items-center mr-1 px-3 py-2 ${activeNav === "/student/create" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
         >
           create student
         </NavLink>
         
       </div>
-      <button className='cursor-pointer' onClick={()=>dispatch(logOutAsync(user?._id))} >signout</button>
+      <button className='cursor-pointer text-sm flex justify-center items-center bg-red-500 p-1 rounded-md' onClick={()=>dispatch(logOutAsync(user?._id))} >signout</button>
       </div>
 
       {/* Render the children components */}

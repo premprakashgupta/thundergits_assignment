@@ -24,7 +24,7 @@ const UploadStudentForm = ({data,setOpen}) => {
     class: data.class,
     section: data.section,
     session: data.session,
-    dateOfBirth: data.admissionNumber,
+    dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth).toISOString()?.split("T")[0]:'',
     gender: data.gender,
     permanentAddress: data.permanentAddress,
     correspondenceAddress: data.correspondenceAddress,
@@ -34,15 +34,19 @@ const UploadStudentForm = ({data,setOpen}) => {
     nationality: data.nationality,
     religion: data.admissionNumber,
     category: data.category,
-    dateOfAdmission: data.dateOfAdmission,
+    dateOfAdmission: data.dateOfAdmission 
+  ? new Date(data.dateOfAdmission).toISOString()?.split("T")[0] 
+  : '',
+
     bloodGroup: data.bloodGroup,
     fatherName: data.fatherName,
     motherName: data.motherName,
     fatherOccupation: data.fatherOccupation,
     motherOccupation: data.motherOccupation,
-    aadharPart1: data?.aadhaarNumber?.splice(0,3)||'',
-    aadharPart2: data?.aadhaarNumber?.splice(4,7)|| '',
-    aadharPart3: data?.aadhaarNumber?.splice(8,11)|| '',
+    aadharPart1: data?.aadhaarNumber?.slice(0, 4) || '',
+aadharPart2: data?.aadhaarNumber?.slice(4, 8) || '',
+aadharPart3: data?.aadhaarNumber?.slice(8, 12) || '',
+
   }
 
 
@@ -152,11 +156,21 @@ const UploadStudentForm = ({data,setOpen}) => {
         <div>
           <div> <label htmlFor="" className="font-medium ">Class</label> </div>
           <select {...formik.getFieldProps("class")} className="input border-[1px] border-gray-300 p-1 rounded-md">
-            <option value="">Select Class</option>
-            {[...Array(12)].map((_, i) => (
-              <option key={i} value={`${i + 1}th`}>{`${i + 1}th`}</option>
-            ))}
-          </select>
+  <option value="">Select Class</option>
+  {[...Array(12)].map((_, i) => {
+    const classNumber = i + 1;
+    const suffix =
+      classNumber === 1 ? "st" :
+      classNumber === 2 ? "nd" :
+      classNumber === 3 ? "rd" : "th";
+
+    return (
+      <option key={classNumber} value={`${classNumber}${suffix}`}>
+        {`${classNumber}${suffix}`}
+      </option>
+    );
+  })}
+</select>
           {formik.touched.class && formik.errors.class && <div className="text-red-500">{formik.errors.class}</div>}
         </div>
         <div>

@@ -1,6 +1,7 @@
 const {User, Student, Token } = require('../models'); // Import your models
 const bcrypt =require("bcryptjs")
 const jwt=require("jsonwebtoken")
+const cloudinary = require('cloudinary');
 
 // Function to generate and save a refresh token
 const generateRefreshToken = async (userId) => {
@@ -110,6 +111,16 @@ const createStudent = async (req, res) => {
   try {
     const studentData = req.body;
 
+    const myCloud = await cloudinary.v2.uploader.upload(
+      req.body.studentPhoto,
+      { folder: "student_management_system", width: 550, crop: "scale" }
+    );
+    studentData.studentPhoto=myCloud.secure_url;
+    if(req.body.aadharPart1 && req.body.aadharPart2&&req.body.aadharPart3){
+
+      studentData.aadhaarNumber=req.body.aadharPart1+req.body.aadharPart2+req.body.aadharPart3
+    }
+
     const newStudent = new Student(studentData);
     
     await newStudent.save();
@@ -141,7 +152,13 @@ const deleteStudent = async (req, res) => {
 const updateStudent = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(id)
     const updatedData = req.body;
+    
+    
+    delete updatedData.studentPhoto
+    delete updatedData._id
+
     const updatedStudent = await Student.findByIdAndUpdate(id, updatedData, { new: true });
     if (!updatedStudent) {
       return res.status(404).json({ message: 'Student not found' });

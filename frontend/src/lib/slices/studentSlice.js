@@ -34,10 +34,12 @@ export const fetchStudents = createAsyncThunk(
 export const createStudent = createAsyncThunk(
   'student/createStudent',
   async (studentData, { rejectWithValue }) => {
+    console.log(...studentData)
     try {
       const response = await axios.post(`${BASE_URL}/student/create`, studentData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*",
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
       });
@@ -52,10 +54,12 @@ export const createStudent = createAsyncThunk(
 export const updateStudent = createAsyncThunk(
   'student/updateStudent',
   async (studentData, { rejectWithValue }) => {
+    
     try {
-      const response = await axios.put(`${BASE_URL}/student/${studentData.id}`, studentData, {
+      const response = await axios.put(`${BASE_URL}/student/${studentData.get('_id')}`, studentData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*",
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
       });
@@ -132,10 +136,11 @@ const studentSlice = createSlice({
         state.loading = true;
       })
       .addCase(updateStudent.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.loading = false;
-        const index = state.students.findIndex((student) => student.id === action.payload.id);
+        const index = state.students.findIndex((student) => student._id === action.payload.student._id);
         if (index !== -1) {
-          state.students[index] = action.payload;
+          state.students[index] = action.payload.student;
         }
       })
       .addCase(updateStudent.rejected, (state, action) => {

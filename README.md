@@ -1,13 +1,10 @@
-# Mini HRMS System
+# Student Management Syatem
 
 ## Project Overview
-This is a **Mini HRMS System** built with the MERN stack (MongoDB, Express.js, React.js, Node.js). It provides core functionalities to manage employees, attendance, leave requests, and payroll calculations. The system includes secure login, role-based access control, and a user-friendly interface.
+This is a **Student Management System** built with the MERN stack (MongoDB, Express.js, React.js, Node.js). It provides core functionalities to manage students. The system includes secure login, role-based access control, and a user-friendly interface.
 
 ### Core Features:
-- **Employee Management**: Manage employee records with CRUD operations.
-- **Attendance System**: Track employee attendance with check-in and check-out functionality.
-- **Leave Management**: Apply for leave, approve/reject leave requests, and store leave records.
-- **Payroll Calculation**: Calculate salary based on attendance and leave status.
+- **Student Management System**: Manage student records with CRUD operations.
 - **Role-based Authentication**: Different access levels for HR and employees using JWT authentication.
 
 ---
@@ -36,5 +33,4 @@ Ensure you have the following installed:
 ### dont forget to put your mongodb url
 
 
-admin credential: email: admin@gmail.com pass: 12345
-employee credential: email: employee@gmail.com pass: 12345
+admin credential: email: prem.com0011@gmail.com pass: 123456

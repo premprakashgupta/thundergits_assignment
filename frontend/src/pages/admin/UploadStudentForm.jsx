@@ -1,86 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { FiUpload } from "react-icons/fi";
-import { createStudent } from "../../lib/slices/studentSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { MdOutlineClose } from "react-icons/md";
+import { createStudent, updateStudent } from "../../lib/slices/studentSlice";
+import { useDispatch } from "react-redux";
 import { faker } from '@faker-js/faker';
+import { FaCross } from "react-icons/fa";
 import AadharInput from "../../components/AadharInput";
+import { FiUpload } from "react-icons/fi";
 
 
-const AddStudentForm = () => {
+const UploadStudentForm = ({data,setOpen}) => {
   const [imagePreview, setImagePreview] = useState(null);
   const [file, setFile] = useState(null)
-  const { loading } = useSelector((state) => state.student);
   const [sameAddress, setSameAddress] = useState(false);
   const dispatch = useDispatch();
 
   const initialValues = {
-    admissionNumber: '',
-    rollNumber: '',
-    firstName: '',
-    lastName: '',
-    class: '',
-    section: '',
-    session: '',
-    dateOfBirth: '',
-    gender: '',
-    permanentAddress: '',
-    correspondenceAddress: '',
-    contactNumber: '',
-    alternateContactNumber: '',
-    email: '',
-    nationality: '',
-    religion: '',
-    category: '',
-    dateOfAdmission: '',
-    bloodGroup: '',
-    fatherName: '',
-    motherName: '',
-    fatherOccupation: '',
-    motherOccupation: '',
-    aadharPart1: '',
-    aadharPart2: '',
-    aadharPart3: '',
+    admissionNumber: data.admissionNumber,
+    rollNumber: data.admissionNumber,
+    firstName: data.firstName,
+    lastName: data.lastName,
+    class: data.class,
+    section: data.section,
+    session: data.session,
+    dateOfBirth: data.admissionNumber,
+    gender: data.gender,
+    permanentAddress: data.permanentAddress,
+    correspondenceAddress: data.correspondenceAddress,
+    contactNumber: data.contactNumber,
+    alternateContactNumber: data.alternateContactNumber,
+    email: data.email,
+    nationality: data.nationality,
+    religion: data.admissionNumber,
+    category: data.category,
+    dateOfAdmission: data.dateOfAdmission,
+    bloodGroup: data.bloodGroup,
+    fatherName: data.fatherName,
+    motherName: data.motherName,
+    fatherOccupation: data.fatherOccupation,
+    motherOccupation: data.motherOccupation,
+    aadharPart1: data?.aadhaarNumber?.splice(0,3)||'',
+    aadharPart2: data?.aadhaarNumber?.splice(4,7)|| '',
+    aadharPart3: data?.aadhaarNumber?.splice(8,11)|| '',
   }
 
-  const generateFakeData = () => {
-    const classNumber = faker.number.int({ min: 1, max: 12 });
-    const suffix =
-      classNumber === 1 ? "st" :
-      classNumber === 2 ? "nd" :
-      classNumber === 3 ? "rd" : "th";
-  
-    return {
-      admissionNumber: Math.floor(100000 + Math.random() * 900000).toString(),
-      rollNumber: faker.number.int({ min: 1, max: 100 }),
-      firstName: faker.person.firstName(),
-      lastName: faker.person.lastName(),
-      class: `${classNumber}${suffix}`, // Corrected class format
-      section: faker.string.alpha(1).toUpperCase(),
-      session: `${faker.number.int({ min: 2020, max: 2025 })}-${faker.number.int({ min: 2026, max: 2030 })}`,
-      dateOfBirth: faker.date.birthdate({ min: 5, max: 18, mode: "age" }).toISOString().split("T")[0],
-      gender: faker.helpers.arrayElement(["Male", "Female", "Other"]),
-      permanentAddress: faker.location.streetAddress(),
-      correspondenceAddress: faker.location.streetAddress(),
-      contactNumber: faker.phone.number("##########"),
-      alternateContactNumber: faker.phone.number("##########"),
-      email: faker.internet.email(),
-      nationality: faker.location.country(),
-      religion: faker.helpers.arrayElement(["Hindu", "Muslim", "Christian", "Sikh", "Other"]),
-      category: faker.helpers.arrayElement(["General", "OBC", "SC", "ST"]),
-      dateOfAdmission: new Date().toISOString().split("T")[0],
-      bloodGroup: faker.helpers.arrayElement(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]),
-      fatherName: faker.person.fullName(),
-      motherName: faker.person.fullName(),
-      fatherOccupation: faker.person.jobTitle(),
-      motherOccupation: faker.person.jobTitle(),
-      aadharPart1: faker.number.int({ min: 1000, max: 9999 }).toString(),
-      aadharPart2: faker.number.int({ min: 1000, max: 9999 }).toString(),
-      aadharPart3: faker.number.int({ min: 1000, max: 9999 }).toString(),
-    };
-  };
-  
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -111,9 +75,7 @@ const AddStudentForm = () => {
       studentPhoto: Yup.string().optional(),
     }),
     onSubmit: async (values) => {
-      if(!file){
-        return alert("File is required")
-      }
+      
       const formData = new FormData();
   
       for (const key in values) {
@@ -125,13 +87,15 @@ const AddStudentForm = () => {
           );
         }
       }
-  
+      if(data._id){
+        formData.append("_id", data._id);
+      }
       if (file) {
         formData.append("studentPhoto", file);
       }
   
-      dispatch(createStudent(formData));
-      
+      dispatch(updateStudent(formData));
+      setOpen(false)
     },
   });
   
@@ -154,10 +118,11 @@ const AddStudentForm = () => {
   };
 
   return (
-    <form onSubmit={formik.handleSubmit} className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+    <div className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-10 p-4 overflow-y-auto">
+      <form onSubmit={formik.handleSubmit} className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 ">
       <div className="flex justify-center items-center relative">
-        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Add Student</h2>
-        <button onClick={handleFillForm} className="absolute top-0 right-0 cursor-pointer bg-green-400 rounded-md p-2 font-medium text-white ">fill the form</button>
+        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Upload Student</h2>
+        <button onClick={()=>setOpen(false)} className="absolute top-0 right-0 cursor-pointer "><MdOutlineClose /></button>
 
       </div>
 
@@ -187,22 +152,11 @@ const AddStudentForm = () => {
         <div>
           <div> <label htmlFor="" className="font-medium ">Class</label> </div>
           <select {...formik.getFieldProps("class")} className="input border-[1px] border-gray-300 p-1 rounded-md">
-  <option value="">Select Class</option>
-  {[...Array(12)].map((_, i) => {
-    const classNumber = i + 1;
-    const suffix =
-      classNumber === 1 ? "st" :
-      classNumber === 2 ? "nd" :
-      classNumber === 3 ? "rd" : "th";
-
-    return (
-      <option key={classNumber} value={`${classNumber}${suffix}`}>
-        {`${classNumber}${suffix}`}
-      </option>
-    );
-  })}
-</select>
-
+            <option value="">Select Class</option>
+            {[...Array(12)].map((_, i) => (
+              <option key={i} value={`${i + 1}th`}>{`${i + 1}th`}</option>
+            ))}
+          </select>
           {formik.touched.class && formik.errors.class && <div className="text-red-500">{formik.errors.class}</div>}
         </div>
         <div>
@@ -245,12 +199,6 @@ const AddStudentForm = () => {
         <div className="flex items-center space-x-2">
           <input type="checkbox" checked={sameAddress} onChange={() => {
             setSameAddress(!sameAddress)
-            if(!sameAddress){
-              formik.setFieldValue('correspondenceAddress',formik.getFieldProps('permanentAddress').value)
-
-            }else{
-              formik.setFieldValue('correspondenceAddress','')
-            }
           }
 
 
@@ -294,10 +242,9 @@ const AddStudentForm = () => {
           <input type="text" {...formik.getFieldProps("motherName")} placeholder="Mother's Name" className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
         {formik.touched.motherName && formik.errors.motherName && <div className="text-red-500">{formik.errors.motherName}</div>}
         {/* Aadhaar Number */}
-        <div>
-          <div> <label htmlFor="" className="font-medium ">Aadhar Number</label> </div>
-        <AadharInput formik={formik}/>
-        </div>
+        <div className="flex space-x-2">
+          <AadharInput formik={formik}/>
+          </div>
 
         {/* Image Upload */}
         <label className="input border-[1px] border-gray-300 p-1 rounded-md cursor-pointer flex items-center space-x-2">
@@ -309,11 +256,12 @@ const AddStudentForm = () => {
       </div>
 
       {/* Submit Button */}
-      <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition mt-4">
-        {loading ? "submitting...":"Submit"}
+      <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition mt-4">
+        Submit
       </button>
     </form>
+    </div>
   );
 };
 
-export default AddStudentForm;
+export default UploadStudentForm;

@@ -1,5 +1,5 @@
 const express = require('express');
-const {  loginUser, registerUser, authMe,  logoutUser, createStudent, viewStudentList, deleteStudent, updateStudent } = require('../controllers');
+const {  loginUser, registerUser, authMe,  logoutUser, createStudent, viewStudentList, deleteStudent, updateStudent, viewStudentDetailById } = require('../controllers');
 const roleMiddleware = require('../middlewares/roleMiddleware');
 const authenticate = require('../middlewares/authMiddleware');
 const router = express.Router();
@@ -10,6 +10,7 @@ router.get('/me',authenticate, authMe)
 // Public routes (accessible by both admin and employee)
 router.post('/student/create',authenticate, roleMiddleware(['admin']), createStudent);
 router.get('/students',authenticate, roleMiddleware(['admin']), viewStudentList);
+router.get('/student/:id',authenticate, roleMiddleware(['admin']), viewStudentDetailById);
 router.delete('/student/:id',authenticate, roleMiddleware(['admin']), deleteStudent);
 router.put('/student/:id',authenticate, roleMiddleware(['admin']), updateStudent);
 

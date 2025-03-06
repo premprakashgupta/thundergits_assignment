@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStudents, deleteStudent } from "../../lib/slices/studentSlice";
 import { FiEdit, FiTrash2, FiSearch } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import UploadStudentForm from "./UploadStudentForm";
 
 const ViewStudent = () => {
   const dispatch = useDispatch();
+  const navigate=useNavigate()
+  const [editData, setEditData] = useState(null)
+  const [open, setOpen] = useState(false)
   const { students } = useSelector((state) => state.student);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -23,7 +28,7 @@ const ViewStudent = () => {
   );
 
   return (
-    <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 mt-6">
+    <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 mt-6 h-screen relative">
       {/* Title */}
       <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
         Student List
@@ -61,7 +66,7 @@ const ViewStudent = () => {
                     index % 2 === 0 ? "bg-gray-50" : "bg-white"
                   } hover:bg-gray-100 transition`}
                 >
-                  <td className="py-4 px-6">{student.name}</td>
+                  <td className="py-4 px-6">{student.firstName} {student.lastName}</td>
                   <td className="py-4 px-6 hidden md:table-cell">
                     {student.email || "N/A"}
                   </td>
@@ -69,7 +74,10 @@ const ViewStudent = () => {
                   <td className="py-4 px-6 flex justify-center space-x-4">
                     <button
                       className="flex items-center text-blue-600 hover:text-blue-800 transition"
-                      onClick={() => console.log("Edit", student.id)}
+                      onClick={() => {
+                        setEditData(student)
+                        setOpen(true)
+                      }}
                     >
                       <FiEdit className="mr-1" />
                       Edit
@@ -97,6 +105,8 @@ const ViewStudent = () => {
           </tbody>
         </table>
       </div>
+
+     {open && <UploadStudentForm data={editData} setOpen={setOpen} />}
     </div>
   );
 };

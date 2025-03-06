@@ -7,6 +7,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import ProtectedRoute from './utils/ProtectedRoute';
 import AdminLayout from './pages/admin/AdminLayout';
 import AddStudentForm from './pages/admin/AddStudentForm';
+import UploadStudentForm from './pages/admin/UploadStudentForm';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
     { path: '/student', element: <AdminDashboard/> },
     { path: '/student/create', element: <AddStudentForm/> },
    
-    
+    { path: '/student/update/:id', element: <UploadStudentForm/> },
   ];
 
 

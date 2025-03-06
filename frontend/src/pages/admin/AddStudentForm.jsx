@@ -94,37 +94,62 @@ const AddStudentForm = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Admission Details */}
         <div>
-        <div><label htmlFor="" className="font-medium ">Admission Number</label></div>
-        <input type="text" {...formik.getFieldProps("admissionNumber")} disabled placeholder="Admission Number" className="input" />
+        <div><label htmlFor=""  className="font-medium ">Admission Number</label></div>
+        <input type="text" className="input border-[1px] border-gray-300 p-1 rounded-md" {...formik.getFieldProps("admissionNumber")} disabled placeholder="Admission Number" />
         </div>
-        <input type="number" {...formik.getFieldProps("rollNumber")} min={1} placeholder="Roll Number" className="input" />
-        <input type="text" {...formik.getFieldProps("firstName")} placeholder="First Name" className="input" />
-        <input type="text" {...formik.getFieldProps("lastName")} placeholder="Last Name" className="input" />
-        
+        <div>
+          <div> <label htmlFor="" className="font-medium ">Roll Number</label> </div>
+        <input type="number" {...formik.getFieldProps("rollNumber")} min={1} placeholder="Roll Number" className="input border-[1px] border-gray-300 p-1 rounded-md" />
+        </div>
+        <div>
+        <div> <label htmlFor="" className="font-medium ">First Name</label> </div>
+        <input type="text" {...formik.getFieldProps("firstName")} placeholder="First Name" className="input border-[1px] border-gray-300 p-1 rounded-md" />
+        </div>
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Last Name</label> </div>
+        <input type="text" {...formik.getFieldProps("lastName")} placeholder="Last Name" className="input border-[1px] border-gray-300 p-1 rounded-md" />
+        </div>
         {/* Class & Section */}
-        <select {...formik.getFieldProps("class")} className="input">
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Class</label> </div>
+        <select {...formik.getFieldProps("class")} className="input border-[1px] border-gray-300 p-1 rounded-md">
           <option value="">Select Class</option>
           {[...Array(12)].map((_, i) => (
             <option key={i} value={`${i + 1}th`}>{`${i + 1}th`}</option>
           ))}
         </select>
-        <input type="text" {...formik.getFieldProps("section")} placeholder="Section" className="input" />
-
+        </div>
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Section</label> </div>
+        <input type="text" {...formik.getFieldProps("section")} placeholder="Section" className="input border-[1px] border-gray-300 p-1 rounded-md" />
+        </div>
         {/* Session & DOB */}
-        <input type="text" {...formik.getFieldProps("session")} placeholder="Session" className="input" />
-        <input type="date" {...formik.getFieldProps("dateOfBirth")} className="input" />
-
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Session</label> </div>
+        <input type="text" {...formik.getFieldProps("session")} placeholder="Session" className="input border-[1px] border-gray-300 p-1 rounded-md" />
+        </div>
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Date Of Birth</label> </div>
+        <input type="date" {...formik.getFieldProps("dateOfBirth")} className="input border-[1px] border-gray-300 p-1 rounded-md" />
+        </div>
         {/* Gender & Nationality */}
-        <select {...formik.getFieldProps("gender")} className="input">
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Gender</label> </div>
+        <select {...formik.getFieldProps("gender")} className="input border-[1px] border-gray-300 p-1 rounded-md">
           <option value="">Select Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
           <option value="Other">Other</option>
         </select>
-        <input type="text" {...formik.getFieldProps("nationality")} placeholder="Nationality" className="input" />
-
+        </div>
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Nationality</label> </div>
+        <input type="text" {...formik.getFieldProps("nationality")} placeholder="Nationality" className="input border-[1px] border-gray-300 p-1 rounded-md" />
+          </div>
         {/* Addresses */}
-        <input type="text" {...formik.getFieldProps("permanentAddress")} placeholder="Permanent Address" className="input" />
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Permanent Address</label> </div>
+        <input type="text" {...formik.getFieldProps("permanentAddress")} placeholder="Permanent Address" className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
         <div className="flex items-center space-x-2">
           <input type="checkbox" checked={sameAddress} onChange={() => {
             setSameAddress(!sameAddress)}
@@ -133,30 +158,46 @@ const AddStudentForm = () => {
         } />
           <label className="text-gray-700">Same as Permanent Address</label>
         </div>
-        <input type="text" {...formik.getFieldProps("correspondenceAddress")} placeholder="Correspondence Address" className="input" disabled={sameAddress} />
-
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Corresponding Address</label> </div>
+        <input type="text" {...formik.getFieldProps("correspondenceAddress")} placeholder="Correspondence Address" className="input border-[1px] border-gray-300 p-1 rounded-md" disabled={sameAddress} />
+        </div>
         {/* Contact Details */}
-        <input type="text" {...formik.getFieldProps("contactNumber")} placeholder="Contact Number" className="input" />
-        <input type="text" {...formik.getFieldProps("alternateContactNumber")} placeholder="Alternate Contact Number" className="input" />
-        <input type="email" {...formik.getFieldProps("email")} placeholder="Email" className="input" />
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Contact Number</label> </div>
+        <input type="text" {...formik.getFieldProps("contactNumber")} placeholder="Contact Number" className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Alternate Contact Number</label> </div>
+        <input type="text" {...formik.getFieldProps("alternateContactNumber")} placeholder="Alternate Contact Number" className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Email</label> </div>
+        <input type="email" {...formik.getFieldProps("email")} placeholder="Email" className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
 
         {/* Category & Admission Date */}
-        <input type="text" {...formik.getFieldProps("category")} placeholder="Category" className="input" />
-        <input type="date" {...formik.getFieldProps("dateOfAdmission")} className="input" />
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Category</label> </div>
+        <input type="text" {...formik.getFieldProps("category")} placeholder="Category" className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Date Of Admission</label> </div>
+        <input type="date" {...formik.getFieldProps("dateOfAdmission")} className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
 
         {/* Parent Details */}
-        <input type="text" {...formik.getFieldProps("fatherName")} placeholder="Father's Name" className="input" />
-        <input type="text" {...formik.getFieldProps("motherName")} placeholder="Mother's Name" className="input" />
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Father's Name</label> </div>
+        <input type="text" {...formik.getFieldProps("fatherName")} placeholder="Father's Name" className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
+        <div>
+        <div> <label htmlFor="" className="font-medium ">Mother's NAme</label> </div>
+        <input type="text" {...formik.getFieldProps("motherName")} placeholder="Mother's Name" className="input border-[1px] border-gray-300 p-1 rounded-md" /></div>
 
         {/* Aadhaar Number */}
         <div className="flex space-x-2">
-          <input type="text" {...formik.getFieldProps("aadharPart1")} placeholder="XXXX" maxLength="4" className="input w-1/3" />
-          <input type="text" {...formik.getFieldProps("aadharPart2")} placeholder="XXXX" maxLength="4" className="input w-1/3" />
-          <input type="text" {...formik.getFieldProps("aadharPart3")} placeholder="XXXX" maxLength="4" className="input w-1/3" />
+          <input type="text" {...formik.getFieldProps("aadharPart1")} placeholder="XXXX" maxLength="4" className="input border-[1px] border-gray-300 p-1 rounded-md w-1/3" />
+          <input type="text" {...formik.getFieldProps("aadharPart2")} placeholder="XXXX" maxLength="4" className="input border-[1px] border-gray-300 p-1 rounded-md w-1/3" />
+          <input type="text" {...formik.getFieldProps("aadharPart3")} placeholder="XXXX" maxLength="4" className="input border-[1px] border-gray-300 p-1 rounded-md w-1/3" />
         </div>
 
         {/* Image Upload */}
-        <label className="input cursor-pointer flex items-center space-x-2">
+        <label className="input border-[1px] border-gray-300 p-1 rounded-md cursor-pointer flex items-center space-x-2">
           <FiUpload className="text-gray-600" />
           <span>Upload Photo</span>
           <input type="file" className="hidden" onChange={handleImageUpload} />

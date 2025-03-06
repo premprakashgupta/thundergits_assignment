@@ -18,7 +18,7 @@ export const signupAsync = createAsyncThunk(
   'auth/signupAsync',
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post(`${BASE_URL}/signup`, userData, {
+      const response = await axios.post(`${BASE_URL}/admin/register`, userData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -35,7 +35,7 @@ export const loginAsync = createAsyncThunk(
   'auth/loginAsync',
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post(`${BASE_URL}/login`, userData, {
+      const response = await axios.post(`${BASE_URL}/admin/login`, userData, {
         headers: {
           'Content-Type': 'application/json',
         },

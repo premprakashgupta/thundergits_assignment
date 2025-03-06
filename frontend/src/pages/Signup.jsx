@@ -15,7 +15,6 @@ const Signup = () => {
 
   // Form validation schema using Yup
   const validationSchema = Yup.object({
-    username: Yup.string().required('Username is required'),
     email: Yup.string().email('Invalid email address').required('Email is required'),
     password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
     confirmPassword: Yup.string()
@@ -45,22 +44,13 @@ const Signup = () => {
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up for MelodyVerse</h2>
         <Formik
-          initialValues={{ username: '', email: '', password: '', confirmPassword: '', terms: false }}
+          initialValues={{ email: '', password: '', confirmPassword: '', terms: false }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
           {() => (
             <Form>
-              <div className="mb-4">
-                <label htmlFor="username" className="block text-sm font-semibold">Username</label>
-                <Field
-                  type="text"
-                  name="username"
-                  className="w-full px-3 py-2 mt-1 border rounded-md"
-                />
-                <ErrorMessage name="username" component="div" className="text-red-600 text-sm" />
-              </div>
-
+              
               <div className="mb-4">
                 <label htmlFor="email" className="block text-sm font-semibold">Email</label>
                 <Field

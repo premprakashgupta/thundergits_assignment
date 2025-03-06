@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const path=require("path")
 const cors=require("cors")
 const authenticate = require('./middlewares/authMiddleware'); // Import the authentication middleware
-const employeeRoutes = require('./routes'); // Import your employee routes
+const studentRoutes = require('./routes'); // Import your employee routes
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 
 // Mount routes
-app.use('/api/employees', employeeRoutes);
+app.use('/api', studentRoutes);
 
 
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));

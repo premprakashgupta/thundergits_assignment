@@ -17,36 +17,19 @@ const AdminLayout = ({ children }) => {
       {/* Navigation Bar (NavLink for routing) */}
       <div className='flex justify-between items-center'>
       <div className="flex space-x-4 mb-6">
-        <NavLink
-          to="/admin/dashboard"
-          className={`rounded-full px-6 py-2 ${activeNav === "/admin/dashboard" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
+      <NavLink
+          to="/student"
+          className={`rounded-full px-6 py-2 ${activeNav === "/student" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
         >
-          Dashboard
+          students
         </NavLink>
         <NavLink
-          to="/admin/employee"
-          className={`rounded-full px-6 py-2 ${activeNav === "/admin/employee" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
+          to="/student/create"
+          className={`rounded-full px-6 py-2 ${activeNav === "/student/create" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
         >
-          Employee
+          create student
         </NavLink>
-        <NavLink
-          to="/admin/attendance"
-          className={`rounded-full px-6 py-2 ${activeNav === "/admin/attendance" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
-        >
-          Attendance
-        </NavLink>
-        <NavLink
-          to="/admin/leave"
-          className={`rounded-full px-6 py-2 ${activeNav === "/admin/leave" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
-        >
-          Leave
-        </NavLink>
-        <NavLink
-          to="/admin/payroll"
-          className={`rounded-full px-6 py-2 ${activeNav === "/admin/payroll" ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'} transition duration-300`}
-        >
-          Payroll
-        </NavLink>
+        
       </div>
       <button className='cursor-pointer' onClick={()=>dispatch(logOutAsync(user?._id))} >signout</button>
       </div>

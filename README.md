@@ -21,7 +21,7 @@ Ensure you have the following installed:
 ### Backend Setup:
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/premprakashgupta/k_and_a_assignment.git
+   git clone git@github.com:premprakashgupta/thundergits_assignment.git
 
 2. ```bash
     npm run build
